@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blue Cake with Candle</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background:#0b0b0b;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    font-family:'Segoe UI', sans-serif;
+    overflow:hidden;
+}
+
+/* FLOATING EFFECT */
+.float{
+    animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+    0%{ transform:translateY(0); }
+    50%{ transform:translateY(-12px); }
+    100%{ transform:translateY(0); }
+}
+
+/* SCENE */
+.scene{
+    position:relative;
+    width:320px;
+    height:460px;
+}
+
+/* FIRE */
+.fire{
+    position:absolute;
+    top:110px;
+    left:50%;
+    transform:translateX(-50%);
+    width:45px;
+    height:65px;
+    z-index:6;
+}
+.flame{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    width:40px;
+    height:60px;
+    transform:translateX(-50%);
+    background:radial-gradient(circle at bottom,
+        #fff 20%,
+        #ffe066 40%,
+        #ff9f1c 60%,
+        #ff6b00 75%,
+        #e63946 85%);
+    border-radius:50% 50% 45% 45%;
+    animation:flicker 1.2s infinite ease-in-out;
+    filter:drop-shadow(0 0 10px #ffb703);
+}
+.flame.inner{
+    width:18px;
+    height:32px;
+    background:radial-gradient(circle at bottom,
+        #fff 35%,
+        #fff3b0 65%,
+        transparent 90%);
+}
+@keyframes flicker{
+    0%{transform:translateX(-50%) scale(1);}
+    50%{transform:translateX(-50%) scale(1.08,1.15);}
+    100%{transform:translateX(-50%) scale(1);}
+}
+
+/* CANDLE */
+.candle-wrap{
+    position:absolute;
+    top:181px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:5;
+}
+.wick{
+    width:4px;
+    height:14px;
+    background:#2a1b12;
+    margin:0 auto;
+}
+.candle{
+    width:26px;
+    height:52px;
+    background:linear-gradient(to right,#fff1d6,#ffe4b5,#fff1d6);
+    border-radius:10px;
+}
+
+/* CAKE */
+.cake{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+}
+.layer{
+    position:relative;
+    margin:0 auto;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 10px 0 rgba(0,0,0,0.2);
+}
+.layer.bottom{
+    width:260px;
+    height:100px;
+    background:linear-gradient(to bottom,#4dabf7,#1c7ed6);
+}
+.layer.middle{
+    width:210px;
+    height:82px;
+    margin-top:-22px;
+    background:linear-gradient(to bottom,#74c0fc,#339af0);
+}
+.layer.top{
+    width:160px;
+    height:68px;
+    margin-top:-22px;
+    background:linear-gradient(to bottom,#a5d8ff,#4dabf7);
+}
+.layer::before{
+    content:"";
+    position:absolute;
+    top:0;
+    width:100%;
+    height:22px;
+    background:rgba(255,255,255,0.35);
+    border-radius:0 0 22px 22px;
+}
+
+/* DECOR */
+.dots{
+    position:absolute;
+    bottom:18px;
+    width:100%;
+    display:flex;
+    justify-content:space-evenly;
+}
+.dot{
+    width:10px;
+    height:10px;
+    background:#fff;
+    border-radius:50%;
+    opacity:0.85;
+}
+
+/* TEXT */
+.text{
+    margin-top:26px;
+    font-size:32px;
+    letter-spacing:3px;
+    color:#a5d8ff;
+    text-transform:uppercase;
+    animation:glow 2.5s ease-in-out infinite;
+}
+@keyframes glow{
+    0%{ text-shadow:0 0 10px rgba(165,216,255,0.4); }
+    50%{
+        text-shadow:
+        0 0 25px rgba(165,216,255,0.9),
+        0 0 45px rgba(77,171,247,0.7);
+    }
+    100%{ text-shadow:0 0 10px rgba(165,216,255,0.4); }
+}
+
+/* PARTICLES */
+.particle{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:#a5d8ff;
+    border-radius:50%;
+    opacity:0.2;
+    animation:rise linear infinite;
+}
+@keyframes rise{
+    from{ transform:translateY(0); }
+    to{ transform:translateY(-120vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 BACKGROUND MUSIC (SAME FOLDER) -->
+<audio id="bg-music" preload="auto">
+    <source src="sparks-intro.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PARTICLES -->
+<script>
+for(let i=0;i<35;i++){
+    const p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"vw";
+    p.style.bottom="-10px";
+    p.style.animationDuration=6+Math.random()*6+"s";
+    p.style.opacity=Math.random()*0.3;
+    document.body.appendChild(p);
+}
+</script>
+
+<!-- CLICK TO PLAY MUSIC -->
+<script>
+document.addEventListener("click", function(){
+    const music = document.getElementById("bg-music");
+    music.volume = 0.4;
+    music.loop = true;
+    music.play();
+}, { once:true });
+</script>
+
+<div class="float">
+<div class="scene">
+
+    <div class="fire">
+        <div class="flame"></div>
+        <div class="flame inner"></div>
+    </div>
+
+    <div class="candle-wrap">
+        <div class="wick"></div>
+        <div class="candle"></div>
+    </div>
+
+    <div class="cake">
+        <div class="layer top">
+            <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="layer middle">
+            <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+        <div class="layer bottom">
+            <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div class="text">HAPPY BIRTHDAY NICS</div>
+
+</body>
+</html>
